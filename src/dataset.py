@@ -53,8 +53,14 @@ class WaterBodiesDataset(Dataset):
             mask = mask.unsqueeze(0).float()    # [1, H, W]  ← добавляем канал
         else:
             image = image.astype(np.float32) / 255.0
+            mean = np.array([0.485, 0.456, 0.406], dtype=np.float32)
+            std = np.array([0.229, 0.224, 0.225], dtype=np.float32)
+            image = (image - mean) / std
             image = np.transpose(image, (2, 0, 1))
             mask = np.expand_dims(mask, axis=0)
+            import torch
+            image = torch.from_numpy(image)
+            mask = torch.from_numpy(mask)
 
         return {"image": image, "mask": mask}
 

@@ -1,4 +1,7 @@
+# Лабораторные работы по курсу "Киберфизические системы"
 # Лабораторная работа 1: Семантическая сегментация водных объектов
+
+Выполнил: Сарайкин Никита Сергеевич М8О-406Б-22
 
 ## Задание
 
@@ -39,7 +42,7 @@ pip install -r requirements.txt
 
 ### 3. Скачать датасет
 
-Скачайте датасет с [Kaggle](https://www.kaggle.com/datasets/franciscoescobar/satellite-images-of-water-bodies) и распакуйте в папку `data/`:
+Скачайте датасет Satellite Images of Water Bodies с [Kaggle](https://www.kaggle.com/datasets/franciscoescobar/satellite-images-of-water-bodies) и распакуйте в папку `data/`:
 
 ```
 data/
@@ -63,23 +66,26 @@ jupyter notebook baseline.ipynb
 ## Структура проекта
 
 ```
-lab1/
+cyber-physical-systems/
 ├── README.md
+├── requirements.txt
+├── .gitignore
 ├── data/                              # Датасет (не включён в репозиторий, см. п.3)
 │   ├── Images/
 │   └── Masks/
 ├── notebooks/
 │   └── baseline.ipynb                 # Основной ноутбук (пункты 1–4)
 ├── src/
+│   ├── __init__.py
 │   ├── dataset.py                     # Dataset, DataLoader, аугментации
 │   └── unet_custom.py                 # U-Net, реализованный с нуля
 └── results/
     ├── baseline/
-    │   ├── baseline_results.csv       # Метрики бейзлайна (п.2)
+    │   └── baseline_results.csv       # Метрики бейзлайна (п.2)
     ├── improved/
-    │   ├── comparison_results.csv     # Метрики гипотез и улучшенного бейзлайна (п.3)
+    │   └── comparison_results.csv     # Метрики гипотез и улучшенного бейзлайна (п.3)
     └── custom_model/
-        ├── final_comparison.csv       # Итоговое сравнение всех моделей (п.4)
+        └── final_comparison.csv       # Итоговое сравнение всех моделей (п.4)
 ```
 
 > Веса моделей (`*.pth`) исключены из git через `.gitignore`. Для их получения нужно запустить обучение из ноутбука.
@@ -105,7 +111,7 @@ lab1/
 |----------|--------|-----|-----------|
 | H1: аугментации | Unet + ResNet34 + аугм. | 0.8078 | +0.001 к бейзлайну |
 | H2: другой энкодер | Unet + EfficientNet-B3 | 0.8059 | на уровне бейзлайна |
-| H3: CosineAnnealing LR | Unet + ResNet34 + cosine | 0.7752 | ухудшение |
+| H3: CosineAnnealing LR | Unet + ResNet34 + cosine | 0.7691 | ухудшение |
 | **Улучшенный бейзлайн** | Unet + EfficientNet-B3 + аугм. | **0.8117** | +0.005 к базовому Unet |
 
 > Улучшенный бейзлайн обошёл базовый Unet+ResNet34, но не превзошёл MAnet+MiT-B2.
